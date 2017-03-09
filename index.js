@@ -18,8 +18,13 @@ module.exports = (function () {
   function TreeModel(config) {
     config = config || {};
     this.config = config;
+    this.config.nodeClass = config.nodeClass || Node;
     this.config.childrenPropertyName = config.childrenPropertyName || 'children';
     this.config.modelComparatorFn = config.modelComparatorFn;
+
+    if (!Node.isPrototypeOf(this.config.nodeClass) && this.config.nodeClass !== Node) {
+      throw new TypeError('config.nodeClass must be of type Node or extended Node class.');
+    }
   }
 
   function addChildToNode(node, child) {
@@ -41,7 +46,7 @@ module.exports = (function () {
       throw new TypeError('Model must be of type object.');
     }
 
-    node = new Node(this.config, model);
+    node = new this.config.nodeClass(this.config, model);
     if (model[this.config.childrenPropertyName] instanceof Array) {
       if (this.config.modelComparatorFn) {
         model[this.config.childrenPropertyName] = mergeSort(
@@ -287,5 +292,6 @@ module.exports = (function () {
     return this;
   };
 
+  TreeModel.Node = Node;
   return TreeModel;
 })();
