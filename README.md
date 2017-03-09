@@ -41,6 +41,7 @@ Valid properties for the options object are:
 
 * `childrenPropertyName` - The name for the children array property. Default is `children`;
 * `modelComparatorFn` - A comparator function to sort the children when parsing the model and adding children. The default order policy is to keep the parsed order and append new children. The comparator function receives the model for two nodes just like the [Array.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) function. The provided sort algorithm is **stable**.
+* `nodeClass` - The class that is used for creating the tree nodes, must extend `Node` -  otherwise an error is thrown. Default is `Node` itself;
 
 ### Parse the hierarchy object
 
