@@ -1,0 +1,8 @@
+# Project Files
+.idea/
+
+# Dependency directories
+node_modules/
+
+# Testing
+coverage/
