@@ -814,4 +814,29 @@ describe('TreeModel', function () {
       });
     });
   });
+  
+  describe('with custom node class', function () {
+    var treeModel;
+
+    it('should throw an error when node class is invalid', function () {
+      function nodeClass() {}
+
+      assert.throws(
+          function () {
+            new TreeModel({nodeClass: nodeClass})
+          },
+          TypeError
+      );
+    });
+
+    it('should create nodes by the custom class', function () {
+      function CustomNodeClass() {}
+      CustomNodeClass.__proto__ = TreeModel.Node;
+
+      treeModel = new TreeModel({nodeClass: CustomNodeClass});
+      var tree = treeModel.parse({id: "node"});
+
+      assert(tree instanceof CustomNodeClass);
+    });
+  })
 });
